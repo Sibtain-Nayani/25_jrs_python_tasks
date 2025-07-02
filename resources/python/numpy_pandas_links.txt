@@ -1,0 +1,2 @@
+Numpy Documentation: https://numpy.org/doc/stable/user/basics.html
+Pandas Documentation: https://pandas.pydata.org/docs/user_guide/index.html#user-guide
