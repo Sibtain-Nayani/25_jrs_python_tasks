@@ -76,7 +76,7 @@ class Imgapp:
                 self.img = cv.rotate(img, cv.ROTATE_90_COUNTERCLOCKWISE)
             case _:
                 print("Error!!, please enter a valid operation")
-                self.rotate()
+                self.rotate(self.img)
 
     def grayscale(self,img):
         self.img= cv.cvtColor(img,cv.COLOR_BGR2GRAY)
@@ -101,7 +101,7 @@ class Imgapp:
                 ret,self.img = cv.threshold(img,lt,ut,cv.THRESH_BINARY_INV)
             case _:
                 print("Error!!, please enter a valid operation")
-                self.thres()
+                self.thres(self.img)
         
         
     def canny(self,img):
