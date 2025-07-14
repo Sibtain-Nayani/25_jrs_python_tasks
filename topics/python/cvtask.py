@@ -202,6 +202,5 @@ class Imgapp:
             return (255,255,255)
             
 
-
 obj = Imgapp()
 
