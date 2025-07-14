@@ -1,0 +1,18 @@
+Read following articles.
+
+Blurring : https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html
+Morphological operations : https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+Thresholding : https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
+Canny Edge : https://www.educative.io/answers/what-is-canny-edge-detection
+
+Build a Command-Line Based Image Utility Tool
+
+1) Accept image path input
+2) Show a menu of operations (resize, rotate, convert to gray, blur, threshold and others that were taught)
+3) Apply the selected operation
+4) Save and optionally display the result
+
+Constraints
+
+Handle errors (invalid input, file not found, wrong image and others)
+Validate all user inputs
