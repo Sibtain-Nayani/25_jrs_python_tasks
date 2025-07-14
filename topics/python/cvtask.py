@@ -41,7 +41,9 @@ class Imgapp:
 
     def operation(self):
         print("\nSelect an operation:(Enter the corresponding number)\n")
-        operand = int(input("1.Resize\n2.Rotate\n3.Grayscale\n4.Blur\n5.Threshold\n6.Canny Edges\n7.Reset all Changes\n"))
+        
+        operand = int(input("1.Resize\n2.Rotate\n3.Grayscale\n4.Blur\n5.Threshold\n6.Canny Edges\n7.Erode\n8.Dilate\n9.Crop\n10.Draw\n11.Reset all Changes\n"))
+
         match(operand):
             case 1:
                 self.resize(self.img)
@@ -56,6 +58,14 @@ class Imgapp:
             case 6:
                 self.canny(self.img)
             case 7:
+                self.ero(self.img)
+            case 8:
+                self.dil(self.img)
+            case 9:
+                self.crop(self.img)
+            case 10:
+                self.draw(self.img)
+            case 11:
                 self.img = self.dup.copy()
             case _:
                 print("Error!!, please enter a valid operation")
@@ -87,7 +97,7 @@ class Imgapp:
             self.img= cv.GaussianBlur(img,(a,a),cv.BORDER_DEFAULT)
         else:
             print("Error!!, please enter an odd integer")
-            self.blur()
+            self.blur(self.img)
 
     def thres(self,img):
         print("\nSelect Thresholding mode:(Enter the corresponding number)\n")
@@ -109,6 +119,89 @@ class Imgapp:
         ut=int(input("Enter upper threshold value:"))
         self.img = cv.Canny(img,lt,ut)
     
+    def ero(self,img):
+        a=int(input("Enter kernel size:(enter odd integer only)"))
+        if a%2==1:
+            self.img= cv.erode(img,(a,a),1)
+        else:
+            print("Error!!, please enter an odd integer")
+            self.ero(self.img)
+    
+    def dil(self,img):
+        a=int(input("Enter kernel size:(enter odd integer only)"))
+        if a%2==1:
+            self.img= cv.dilate(img,(a,a),1)
+        else:
+            print("Error!!, please enter an odd integer")
+            self.dil(self.img)
+    
+    def crop(self,img):
+        wa=int(input("Enter width range(Startpoint):"))
+        wb=int(input("Enter width range(Endpoint):"))
+        ha=int(input("Enter height range(Startpoint):"))
+        hb=int(input("Enter height range(Endpoint):"))
+        self.img = self.img[ha:hb,wa:wb]
+    
+    def draw(self,img):
+        print("\nSelect Drawing tool:(Enter the corresponding number)\n")
+        mode = int(input("1.line \n2.Rectangle\n3.Circle\n"))
+        match(mode):
+            case 1:
+                x1=int(input("Enter x range(Startpoint):"))
+                x2=int(input("Enter x range(Endpoint):"))
+                y1=int(input("Enter y range(Startpoint):"))
+                y2=int(input("Enter y range(Endpoint):"))
+                
+                th = int(input("Enter Thickness:\n"))
+                print("Select a colour:\n")
+                colopt= int(input("1.Red\n2.Blue\n3.Green\n4.Black\n5.White\n"))
+                colorr=self.colsel(colopt)
+                self.img = cv.line(img,(x1,y1),(x2,y2),colorr,th)
+            
+            case 2:
+                x1=int(input("Enter coords of TopLeft corner (x):"))
+                y1=int(input("Enter coords of TopLeft corner (y):"))
+                x2=int(input("Enter coords of BottomRight corner (x):"))
+                y2=int(input("Enter coords of BottomRight corner (y):"))
+
+                th = int(input("Enter Thickness:\n"))
+                print("Select a colour:\n")
+                colopt= int(input("1.Red\n2.Blue\n3.Green\n4.Black\n5.White\n"))
+                colorr=self.colsel(colopt)
+                self.img = cv.rectangle(img,(x1,y1),(x2,y2),colorr,th)
+            
+            case 3:
+
+                x1=int(input("Enter coords of Center(x):"))
+                y1=int(input("Enter coords of Center(y):"))
+                radi = int(input("Enter Radius(Integer):\n"))
+                
+                th = int(input("Enter Thickness:\n"))
+                print("Select a colour:\n")
+                colopt= int(input("1.Red\n2.Blue\n3.Green\n4.Black\n5.White\n"))
+                colorr=self.colsel(colopt)
+                self.img = cv.circle(img,(x1,y1),radi,colorr,th)
+            
+            case _:
+                print("Error!!, please enter a valid operation")
+                self.draw(self.img)
+    
+    def colsel(self,a):
+        if a == 1:
+            return (0,0,255)
+        if a == 2:
+            return (255,0,0)
+        if a == 3:
+            return (0,255,0)
+        if a == 4:
+            return (0,0,0)
+        if a == 5:
+            return (255,255,255)
+        else:
+            print("Enter valid option next time. Using Default option(Black)")
+            return (255,255,255)
+            
+
 
 obj = Imgapp()
 
